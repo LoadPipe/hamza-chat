@@ -7,28 +7,36 @@ export class listeners {
         this.longPressTimer;
 
         $(document).ready((e) => {
-            setTimeout(() => {
-                const params = new Proxy(
-                    new URLSearchParams(window.location.search),
-                    {
-                        get: (searchParams, prop) => searchParams.get(prop),
-                    }
-                );
-                let recipient = params.target; // "some_value"
-                const target = $(
-                    'tr.user[data-id="YZKBhoCAGtJostcd"][data-name="' +
-                        recipient +
-                        '"]'
-                );
+            const params = new Proxy(
+                new URLSearchParams(window.location.search),
+                {
+                    get: (searchParams, prop) => searchParams.get(prop),
+                }
+            );
+            let recipient = params.target; // "some_value"
+            let orderId = params.order;
 
-                let name = recipient;
-                let puny = `${app.ui.toUnicode(name)}/`;
-                $(`.popover[data-name=newConversation] input[name=domain]`).val(
-                    puny
-                );
-                app.ui.popover('newConversation');
-                app.ui.enableTarget(target);
-            }, 2000);
+            if (!$('#users').hasClass('showing')) {
+                $('#users').addClass('showing');
+            }
+            const target = $(
+                'tr.user[data-id="YZKBhoCAGtJostcd"][data-name="' +
+                    recipient +
+                    '"]'
+            );
+
+            let name = recipient;
+            let puny = `${app.ui.toUnicode(name)}/`;
+            $(`.popover[data-name=newConversation] input[name=domain]`).val(
+                puny
+            );
+            app.ui.popover('newConversation');
+            app.ui.enableTarget(target);
+
+            if (orderId?.length) {
+                const textbox = $('input[name="message"]');
+                textbox.val('Order: ' + orderId);
+            }
         });
 
         $(window).on('focus', (e) => {
