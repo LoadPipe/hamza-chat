@@ -6,6 +6,31 @@ export class listeners {
         this.longPress = 0;
         this.longPressTimer;
 
+        $(document).ready((e) => {
+            setTimeout(() => {
+                const params = new Proxy(
+                    new URLSearchParams(window.location.search),
+                    {
+                        get: (searchParams, prop) => searchParams.get(prop),
+                    }
+                );
+                let recipient = params.target; // "some_value"
+                const target = $(
+                    'tr.user[data-id="YZKBhoCAGtJostcd"][data-name="' +
+                        recipient +
+                        '"]'
+                );
+
+                let name = recipient;
+                let puny = `${app.ui.toUnicode(name)}/`;
+                $(`.popover[data-name=newConversation] input[name=domain]`).val(
+                    puny
+                );
+                app.ui.popover('newConversation');
+                app.ui.enableTarget(target);
+            }, 2000);
+        });
+
         $(window).on('focus', (e) => {
             app.isActive = true;
             app.ui.markUnread(app.conversation, false);
@@ -1260,25 +1285,6 @@ export class listeners {
                         break;
                 }
             }
-        });
-
-        $(window).on('load', (e) => {
-            const params = new Proxy(
-                new URLSearchParams(window.location.search),
-                {
-                    get: (searchParams, prop) => searchParams.get(prop),
-                }
-            );
-            let recipient = params.target; // "some_value"
-            alert(recipient);
-
-            let name = app.userForID(recipient).domain;
-            let puny = `${app.ui.toUnicode(name)}/`;
-            $(`.popover[data-name=newConversation] input[name=domain]`).val(
-                puny
-            );
-            app.ui.popover('newConversation');
-            app.ui.enableTarget(target);
         });
     }
 }
