@@ -8,7 +8,7 @@ export class ws {
 
 	async connect() {
 		let connected = new Promise(resolve => {
-			this.socket = new WebSocket(`wss://${window.location.host}/wss`);
+			this.socket = new WebSocket(`wss://172.24.0.1/wss`);
 
 			this.socket.onopen = (e) => {
 				this.logMessage("CONNECTED");

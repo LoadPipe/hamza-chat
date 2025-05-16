@@ -1,4 +1,4 @@
-<body data-page="chat" data-version="<?php echo $revision; ?>">
+<body data-page="chat" data-version="">
 	<div class="connecting">
 		<div class="lds-facebook"><div></div><div></div><div></div></div>
 	</div>

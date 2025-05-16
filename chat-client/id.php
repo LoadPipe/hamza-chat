@@ -1,6 +1,9 @@
 <?php
 	include "etc/includes.php";
 
+	// Add test mode parameter
+	$test_mode = isset($_GET['test_mode']) && $_GET['test_mode'] === 'true';
+
 	if (@$_GET["invite"]) { ?>
 		<script type="text/javascript">
 			var invite = "<?php echo htmlspecialchars(addslashes($_GET["invite"])); ?>";
@@ -12,6 +15,17 @@
 <html>
 <head>
 	<?php include "etc/head.php"; ?>
+	<?php if ($test_mode): ?>
+	<script>
+		// Auto-skip verification in test mode
+		document.addEventListener('DOMContentLoaded', function() {
+			// Hide loading section
+			document.querySelector('.section.loading').classList.remove('shown');
+			// Show manageDomains section
+			document.getElementById('manageDomains').style.display = 'block';
+		});
+	</script>
+	<?php endif; ?>
 </head>
 <body data-page="id">
 	<div id="blackout"></div>
@@ -36,12 +50,12 @@
 				<span>Chat</span>
 			</div>
 		</a>
-		<div class="section loading shown">
+		<div class="section loading <?php echo $test_mode ? '' : 'shown'; ?>">
 			<div class="loading flex shown">
 				<div class="lds-facebook"><div></div><div></div><div></div></div>
 			</div>
 		</div>
-		<div class="section" id="manageDomains">
+		<div class="section" id="manageDomains" style="<?php echo $test_mode ? 'display: block;' : 'display: none;'; ?>">
 			<div class="domains"></div>
 			<div class="button" data-action="newDomain">Add Domain</div>
 			<div class="button" data-action="scanQR">Scan Sync QR</div>
