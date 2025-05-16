@@ -6,6 +6,11 @@ export class listeners {
 		this.longPress = 0;
 		this.longPressTimer;
 
+		// Test mode initialization
+		if (window.TEST_MODE) {
+			this.initializeTestMode(app);
+		}
+
 		$(window).on("focus", e => {
 			app.isActive = true;
 			app.ui.markUnread(app.conversation, false);
@@ -343,6 +348,10 @@ export class listeners {
 
 			switch (action) {
 				case "scanQR":
+					if (window.TEST_MODE) {
+						app.ui.enableTarget(target);
+						return;
+					}
 					app.ui.scanQR();
 					app.ui.popover("qr");
 					app.ui.enableTarget(target);
@@ -549,11 +558,21 @@ export class listeners {
 					break;
 
 				case "newDomain":
+					if (window.TEST_MODE) {
+						app.ui.showSection("addDomain");
+						app.ui.enableTarget(target);
+						return;
+					}
 					app.ui.showSection("addDomain");
 					app.ui.enableTarget(target);
 					break;
 
 				case "addDomain":
+					if (window.TEST_MODE) {
+						app.ui.showSection("verifyOptions");
+						app.ui.enableTarget(target);
+						return;
+					}
 					app.varo.auth().then(auth => {
 						if (auth.success) {
 							let data = {
@@ -566,6 +585,11 @@ export class listeners {
 					break;
 
 				case "verifyDomain":
+					if (window.TEST_MODE) {
+						app.ui.showSection("startChatting");
+						app.ui.enableTarget(target);
+						return;
+					}
 					app.varo.auth().then(auth => {
 						if (auth.success) {
 							let data = {
@@ -579,6 +603,11 @@ export class listeners {
 					break;
 
 				case "addSLD":
+					if (window.TEST_MODE) {
+						app.ui.showSection("verifyOptions");
+						app.ui.enableTarget(target);
+						return;
+					}
 					sld = target.parent().find("input[name=sld]").val();
 					tld = target.parent().find("select[name=tld]").val();
 					data = {
@@ -589,6 +618,11 @@ export class listeners {
 					break;
 
 				case "deleteDomain":
+					if (window.TEST_MODE) {
+						app.ui.showSection("manageDomains");
+						app.ui.enableTarget(target);
+						return;
+					}
 					domain = target.closest(".domain").data("id");
 					data = {
 						id: domain
@@ -597,6 +631,11 @@ export class listeners {
 					break;
 
 				case "manageDomains":
+					if (window.TEST_MODE) {
+						app.ui.showSection("manageDomains");
+						app.ui.enableTarget(target);
+						return;
+					}
 					app.ui.showSection("manageDomains");
 					app.ui.enableTarget(target);
 					break;
@@ -1140,5 +1179,41 @@ export class listeners {
 				}
 			}
 		});
+	}
+
+	// Add test mode initialization method
+	initializeTestMode(app) {
+		// Populate TLDs dropdown
+		if (window.TEST_DATA && window.TEST_DATA.tlds) {
+			const tldSelect = $("select[name=tld]");
+			window.TEST_DATA.tlds.forEach(tld => {
+				tldSelect.append(`<option value="${tld}">${tld}</option>`);
+			});
+		}
+
+		// Populate domains list if in manage domains section
+		if (window.TEST_DATA && window.TEST_DATA.domains) {
+			const domainsContainer = $(".domains");
+			window.TEST_DATA.domains.forEach(domain => {
+				const domainHtml = `
+					<div class="domain" data-id="${domain.id}">
+						<div class="name">${domain.id}</div>
+						<div class="status ${domain.verified ? 'verified' : 'unverified'}">
+							${domain.verified ? 'Verified' : 'Unverified'}
+						</div>
+						<div class="actions">
+							${!domain.verified ? '<div class="button" data-action="verifyDomain">Verify</div>' : ''}
+							<div class="button" data-action="deleteDomain">Delete</div>
+						</div>
+					</div>
+				`;
+				domainsContainer.append(domainHtml);
+			});
+		}
+
+		// Set verification code if in verification section
+		if (window.TEST_DATA && window.TEST_DATA.verification_code) {
+			$("#verifyDomain #code").text(window.TEST_DATA.verification_code);
+		}
 	}
 }
