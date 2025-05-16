@@ -237,7 +237,7 @@
 			</div>
 			<div class="center">
 				<div class="logo">
-					<img draggable="false" src="/assets/img/handshake">
+					<img draggable="false" src="/assets/img/hns-hamza-logo-icon.png">
 				</div>
 				<div class="messageHeader">
 					<table></table>
