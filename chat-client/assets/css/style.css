@@ -3176,7 +3176,8 @@ body[data-test-mode="true"] #messageHolder {
 body[data-test-mode="true"] .inputContainer {
 	display: block !important;
 }
-.close-window-button {
+
+body[data-page=id] .close-window-button {
 	position: absolute;
     top: 30px;
     right: 30px;
@@ -3187,7 +3188,30 @@ body[data-test-mode="true"] .inputContainer {
     border: 0px;
     cursor: pointer;
 }
-.close-window-button img {
+
+body[data-page=id] .close-window-button img {
 	width: 20px;
 	height: 20px;
+}
+
+body[data-page=chat] .close-window-button {
+	margin-right: 10px;
+    padding: 14px;
+    padding-bottom: 10px;
+    background: #272727;
+    border-radius: 7px;
+	border: 0px;
+	cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+	body[data-page=chat] .close-window-button {
+		margin-right: 0px;
+		
+	}
+}
+
+body[data-page=chat] .close-window-button img {
+	width: 15px;
+	height: 15px;
 }
