@@ -2,7 +2,7 @@
 	// Test mode configuration
 	$test_mode = $GLOBALS['testMode'] ?? false;
 ?>
-<body data-page="chat" data-version="<?php echo $revision ?? 1; ?>" <?php echo $test_mode ? 'data-test-mode="true"' : ''; ?>>
+<body data-page="chat" data-version="<?php echo $revision; ?>" <?php echo $test_mode ? 'data-test-mode="true"' : ''; ?>>
 	<?php if ($test_mode): ?>
 	<script type="text/javascript">
 		window.TEST_MODE = true;

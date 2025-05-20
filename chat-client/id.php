@@ -53,9 +53,8 @@
 	</div>
 	<div class="form" id="id">
 		<a href="/">
-			<div class="logo">
-				<img draggable="false" src="/assets/img/handshake">
-				<span>Chat</span>
+			<div class="login-logo">
+				<img draggable="false" src="/assets/img/login-logo.svg">
 			</div>
 		</a>
 		<div class="section loading shown">
