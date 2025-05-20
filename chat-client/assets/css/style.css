@@ -3176,3 +3176,18 @@ body[data-test-mode="true"] #messageHolder {
 body[data-test-mode="true"] .inputContainer {
 	display: block !important;
 }
+.close-window-button {
+	position: absolute;
+    top: 30px;
+    right: 30px;
+    background: #333333;
+    border-radius: 20px;
+    padding: 10px;
+	padding-bottom: 7px;
+    border: 0px;
+    cursor: pointer;
+}
+.close-window-button img {
+	width: 20px;
+	height: 20px;
+}
