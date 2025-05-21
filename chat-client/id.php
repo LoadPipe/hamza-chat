@@ -1,6 +1,25 @@
 <?php
 	include "etc/includes.php";
 
+	// Test mode configuration
+	$test_mode = $GLOBALS['testMode'] ?? false;
+	if ($test_mode) {
+		?>
+		<script type="text/javascript">
+			window.TEST_MODE = true;
+			window.TEST_DATA = {
+				domains: [
+					{ id: 'test1.hns', verified: true },
+					{ id: 'test2.hns', verified: false },
+					{ id: 'test3.hns', verified: true }
+				],
+				tlds: ['hns', 'handshake'],
+				verification_code: 'test-verification-code-123'
+			};
+		</script>
+		<?php
+	}
+
 	if (@$_GET["invite"]) { ?>
 		<script type="text/javascript">
 			var invite = "<?php echo htmlspecialchars(addslashes($_GET["invite"])); ?>";
@@ -13,7 +32,10 @@
 <head>
 	<?php include "etc/head.php"; ?>
 </head>
-<body data-page="id">
+<body data-page="id" <?php echo $test_mode ? 'data-test-mode="true"' : ''; ?>>
+	<?php if ($test_mode): ?>
+	<div class="test-mode-indicator">Test Mode</div>
+	<?php endif; ?>
 	<div id="blackout"></div>
 	<div class="popover" data-name="qr">
 		<div class="head">
@@ -31,9 +53,8 @@
 	</div>
 	<div class="form" id="id">
 		<a href="/">
-			<div class="logo">
-				<img draggable="false" src="/assets/img/handshake">
-				<span>Chat</span>
+			<div class="login-logo">
+				<img draggable="false" src="/assets/img/login-logo.svg">
 			</div>
 		</a>
 		<div class="section loading shown">

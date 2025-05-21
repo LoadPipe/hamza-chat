@@ -1,5 +1,5 @@
 :root {
-	--themeColor: #409aed;
+	--themeColor: #94d42a;
 
 	--positiveColor: #91b14f;
 	--negativeColor: #db4437;
@@ -9,6 +9,7 @@
 	--secondaryBorderColor: #252525;
 	--tertiaryBorderColor: #3c3c3c;
 
+	--buttonTextColor: #121212;
 	--primaryForeground: #fff;
 	--secondaryForeground: #7a7a7a;
 	--tertiaryForeground: #a6a6a6;
@@ -66,6 +67,74 @@
 	--handshakeIcon: url(/assets/img/handshake);
 	--unstoppableIcon: url(/assets/img/unstoppable);
 	--icannIcon: url(/assets/img/icann);
+}
+
+/* Test Mode Styles */
+body[data-test-mode="true"] {
+	--testModeBorder: 2px dashed var(--warningColor);
+}
+
+body[data-test-mode="true"] .form#id {
+	border: var(--testModeBorder);
+	padding: 20px;
+	margin: 20px;
+}
+
+body[data-test-mode="true"] .section {
+	border: var(--testModeBorder);
+	margin: 10px 0;
+	padding: 15px;
+}
+
+body[data-test-mode="true"] .domain {
+	border: var(--testModeBorder);
+	padding: 10px;
+	margin: 5px 0;
+	border-radius: 10px;
+}
+
+body[data-test-mode="true"] .domain .status {
+	padding: 5px 10px;
+	border-radius: 5px;
+}
+
+body[data-test-mode="true"] .domain .status.verified {
+	background-color: var(--positiveColor);
+	color: var(--primaryBackground);
+}
+
+body[data-test-mode="true"] .domain .status.unverified {
+	background-color: var(--warningColor);
+	color: var(--primaryBackground);
+}
+
+body[data-test-mode="true"] .domain .actions {
+	gap: 10px;
+}
+
+body[data-test-mode="true"] .domain .actions .button {
+	width: auto;
+	padding: 0 15px;
+}
+
+body[data-test-mode="true"] #verifyDomain #code {
+	background-color: var(--tertiaryBackground);
+	padding: 10px;
+	border-radius: 5px;
+	margin: 10px 0;
+	font-family: monospace;
+}
+
+body[data-test-mode="true"] .test-mode-indicator {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	background-color: var(--warningColor);
+	color: var(--primaryBackground);
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 12px;
+	z-index: 999999;
 }
 
 ::-webkit-scrollbar {
@@ -139,7 +208,8 @@ code {
 }
 
 html,body {
-	background-color: var(--primaryBackground);
+	background: linear-gradient(to bottom, #080808, #2c272d);
+	/* background-color: var(--primaryBackground); */
 	color: var(--primaryForeground);
 	height: 100%;
 	width: 100%;
@@ -786,10 +856,18 @@ body[data-page=id] {
 	justify-content: space-between;
 }
 .logo img {
-	height: 30px;
-	width: 30px;
+	height: 50px;
+	width: auto;  
+}
+body[data-page=id] .logo img {
 	filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(305deg) brightness(106%) contrast(101%);
 }
+
+body[data-page=id] .login-logo img {
+	width: 250px;
+	margin-top: 50px;
+}
+
 .logo span {
 	font-size: 30px;
 	padding-left: 10px;
@@ -807,6 +885,37 @@ body[data-page=id] {
 
 body[data-page=id] .form .section {
 	display: none;
+	margin-top: 2rem;
+    background: #121212;
+    padding: 3rem 2rem;
+    border-radius: 0.8rem;
+}
+
+body[data-page=id] .form .section.loading {
+	margin-top: -200px !important;
+	padding: inherit !important;
+	background: transparent !important;
+}
+
+
+/* Test mode section visibility */
+body[data-test-mode="true"] .form .section {
+	display: block;
+}
+
+/* Hide loading section in test mode */
+body[data-test-mode="true"] .form .section.loading,
+body[data-test-mode="true"] .form .section.loading.shown {
+	display: none !important;
+}
+
+body[data-test-mode="true"] .form .section.shown {
+	display: block;
+}
+
+/* Test mode specific styles */
+body[data-test-mode="true"] {
+	--testModeBorder: 2px dashed var(--warningColor);
 }
 
 .form .section > *:not(:last-child), .popover .body > :not(:last-child), .popover .body .content > :not(:last-child), #manageDomains .domains > *:not(:last-child) {
@@ -924,8 +1033,8 @@ input, textarea {
 	height: 40px;
 	background-color: var(--themeColor);
 	line-height: 40px;
-	color: var(--primaryForeground);
-	border-radius: 10px;
+	color: var(--buttonTextColor);
+	border-radius: 20px;
 	text-align: center;
 	overflow: hidden;
 }
@@ -3033,4 +3142,37 @@ body.compact .messageRow .messageEffect {
 		transform: scale(0.75);
 		transform-origin: 0 0;
 	}
+}
+
+/* Chat page test mode styles */
+body[data-test-mode="true"] .connecting {
+	display: none !important;
+}
+
+body[data-test-mode="true"] #conversations .section {
+	display: block !important;
+}
+
+body[data-test-mode="true"] #conversations .section table {
+	display: block !important;
+}
+
+body[data-test-mode="true"] #users .section {
+	display: block !important;
+}
+
+body[data-test-mode="true"] #users .section table {
+	display: block !important;
+}
+
+body[data-test-mode="true"] .messageHeader {
+	display: flex !important;
+}
+
+body[data-test-mode="true"] #messageHolder {
+	display: flex !important;
+}
+
+body[data-test-mode="true"] .inputContainer {
+	display: block !important;
 }

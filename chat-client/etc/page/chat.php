@@ -1,7 +1,41 @@
-<body data-page="chat" data-version="<?php echo $revision; ?>">
+<?php
+	// Test mode configuration
+	$test_mode = $GLOBALS['testMode'] ?? false;
+?>
+<body data-page="chat" data-version="<?php echo $revision; ?>" <?php echo $test_mode ? 'data-test-mode="true"' : ''; ?>>
+	<?php if ($test_mode): ?>
+	<script type="text/javascript">
+		window.TEST_MODE = true;
+		// window.TEST_DATA = {
+		// 	domains: [
+		// 		{ id: 'test1.hns', verified: true },
+		// 		{ id: 'test2.hns', verified: false },
+		// 		{ id: 'test3.hns', verified: true }
+		// 	],
+		// 	tlds: ['hns', 'handshake'],
+		// 	verification_code: 'test-verification-code-123',
+		// 	channels: [
+		// 		{ id: 'general', name: 'General', unread: false },
+		// 		{ id: 'random', name: 'Random', unread: true }
+		// 	],
+		// 	pms: [
+		// 		{ id: 'user1.hns', name: 'User One', unread: false },
+		// 		{ id: 'user2.hns', name: 'User Two', unread: true }
+		// 	],
+		// 	users: [
+		// 		{ id: 'user1.hns', name: 'User One', status: 'active' },
+		// 		{ id: 'user2.hns', name: 'User Two', status: 'inactive' },
+		// 		{ id: 'user3.hns', name: 'User Three', status: 'active' }
+		// 	]
+		// };
+	</script>
+	<div class="test-mode-indicator">Test Mode</div>
+	<?php endif; ?>
+	<?php if (!$test_mode): ?>
 	<div class="connecting">
 		<div class="lds-facebook"><div></div><div></div><div></div></div>
 	</div>
+	<?php endif; ?>
 	<div id="blackout"></div>
 	<div class="popover" data-name="update">
 		<div class="head">
@@ -203,7 +237,7 @@
 			</div>
 			<div class="center">
 				<div class="logo">
-					<img draggable="false" src="/assets/img/handshake">
+					<img draggable="false" src="/assets/img/hns-hamza-logo-icon.png">
 				</div>
 				<div class="messageHeader">
 					<table></table>
