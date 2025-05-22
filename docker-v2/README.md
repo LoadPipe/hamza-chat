@@ -11,6 +11,62 @@ This directory contains the Docker configuration for setting up the HNS Chat app
 - Docker Compose
 
 ## Setup Instructions
+NOTE:  Assuming you are starting from the docker-v2 folder
+
+0. Setup config files:
+0a. Chat Client Config
+```bash
+cp ../chat-client/etc/config.sample.json ../chat-client/etc/config.json
+```
+
+Edit contents of config.json:
+```bash
+{
+	"path": "/var/www/html",
+
+	"sqlHost": "db",
+	"sqlUser": "hnschat",
+	"sqlPass": "hnschat-password",
+	"sqlDatabase": "hnschat",
+
+	"typingDelay": 2000,
+
+	"tenorKey": "",
+
+	"testMode": false,
+
+	"environment": "local"
+}
+```
+
+0b. Chat Server Config
+```bash
+cp ../chat-server/config.sample.json ../chat-server/config.json
+```
+
+Edit contents of config.json
+```bash
+{
+	"path": "/app",
+
+	"sqlHost": "db",
+	"sqlPort": 3306,
+	"sqlUser": "hnschat",
+	"sqlPass": "hnschat-password",
+	"sqlDatabase": "hnschat",
+
+	"typingDelay": 2000,
+
+	"channelPrice": 50,
+
+	"expoKey": "",
+
+	"janusWs": "",
+	"janusKey": "",
+
+	"admin": []
+}
+```
 
 1. Build and start the containers:
 ```bash
