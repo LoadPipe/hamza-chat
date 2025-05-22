@@ -4,12 +4,12 @@ const defaultConfig = {
     websocket: {
         local: {
             protocol: 'ws',
-            host: '172.24.0.1',
-            path: ':4444'
+            host: window.location.host,
+            path: '/wss'
         },
         production: {
             protocol: 'wss',
-            host: 'your-production-domain.com',
+            host: window.location.host,
             path: '/wss'
         }
     }
@@ -28,7 +28,12 @@ try {
 export const config = {
     ...defaultConfig,
     environment: serverConfig.environment || defaultConfig.environment,
-    websocket: defaultConfig.websocket
+    websocket: {
+        ...defaultConfig.websocket,
+        [serverConfig.environment || defaultConfig.environment]: {
+            ...defaultConfig.websocket[serverConfig.environment || defaultConfig.environment]
+        }
+    }
 };
 
 // Helper function to get current WebSocket URL
@@ -36,6 +41,6 @@ export function getWebSocketUrl() {
     const env = config.environment;
     const wsConfig = config.websocket[env];
     const fullUrl = `${wsConfig.protocol}://${wsConfig.host}${wsConfig.path}`;
-    console.log('Full URL:', fullUrl);
+    // console.log('Full URL:', fullUrl);
     return fullUrl;
 } 
