@@ -1,3 +1,5 @@
+import { getWebSocketUrl } from './config.js';
+
 export class ws {
 	constructor(parent) {
 		this.parent = parent;
@@ -8,7 +10,8 @@ export class ws {
 
 	async connect() {
 		let connected = new Promise(resolve => {
-			this.socket = new WebSocket(`wss://${window.location.host}/wss`);
+			console.log('Connecting to:', getWebSocketUrl());
+			this.socket = new WebSocket(getWebSocketUrl());
 
 			this.socket.onopen = (e) => {
 				this.logMessage("CONNECTED");

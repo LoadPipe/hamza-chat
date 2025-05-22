@@ -1,0 +1,15 @@
+FROM node:22
+
+WORKDIR /app
+
+# Copy server application
+COPY chat-server/ /app/
+
+# Install dependencies
+RUN npm install
+
+# Expose websocket port
+EXPOSE 8080
+
+# Start the server
+CMD ["node", "server.js"] 
