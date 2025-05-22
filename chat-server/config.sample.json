@@ -5,7 +5,7 @@
 	"sqlUser": "",
 	"sqlPass": "",
 	"sqlDatabase": "",
-
+	"sqlPort": 3306,
 	"typingDelay": 2000,
 
 	"channelPrice": 50,

@@ -1,4 +1,5 @@
 <?php
+	ob_start();
 	include "etc/includes.php";
 ?>
 <!DOCTYPE html>

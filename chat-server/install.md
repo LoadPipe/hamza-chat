@@ -1,4 +1,4 @@
-# Install
+# Install database
 
 ```sh
 sudo apt install php libapache2-mod-php apache2 mysql-server php-mysql curl git php-curl php-dom
@@ -19,7 +19,7 @@ mysql
 
 ```
 
-## Setup Apache and web server
+## Setup chat-client (refers to hamza-chat/chat-client)
 ```sh
 cd /var/www/html
 git clone https://github.com/Nathanwoodburn/hnschat-web.git hnschat
@@ -31,7 +31,7 @@ cp 000-default.conf /etc/apache2/sites-available
 systemctl restart apache2
 ```
 
-## Setup websocket server
+## Setup chat-server (refers to hamza-chat/chat-server)
 
 ```sh
 cd /root

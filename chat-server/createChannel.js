@@ -9,6 +9,7 @@ const sql = mysql.createPool({
 	user: config.sqlUser,
 	password: config.sqlPass,
 	database: config.sqlDatabase,
+	port: config.sqlPort,
 	charset : "utf8mb4"
 });
 
