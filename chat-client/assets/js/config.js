@@ -1,6 +1,6 @@
 // Default configuration
 const defaultConfig = {
-    environment: 'local',
+    environment: 'production', // default
     websocket: {
         local: {
             protocol: 'ws',

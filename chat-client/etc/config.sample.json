@@ -10,5 +10,7 @@
 
 	"tenorKey": "",
 
-	"testMode": false
+	"testMode": false,
+
+	"environment": "production"
 }
