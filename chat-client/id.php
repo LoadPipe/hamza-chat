@@ -1,20 +1,23 @@
 <?php
+	// Ensure no output before headers
+	ob_start();
+	
 	include "etc/includes.php";
 
 	// Add test mode parameter
 	$test_mode = isset($_GET['test_mode']) && $_GET['test_mode'] === 'true';
 
-	if (@$_GET["invite"]) { ?>
-		<script type="text/javascript">
-			var invite = "<?php echo htmlspecialchars(addslashes($_GET["invite"])); ?>";
-		</script>
-	<?php
+	// Store invite code in a variable instead of outputting it directly
+	$invite_script = '';
+	if (@$_GET["invite"]) {
+		$invite_script = '<script type="text/javascript">var invite = "' . htmlspecialchars(addslashes($_GET["invite"])) . '";</script>';
 	}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include "etc/head.php"; ?>
+	<?php echo $invite_script; ?>
 	<?php if ($test_mode): ?>
 	<script>
 		// Auto-skip verification in test mode
