@@ -1523,6 +1523,9 @@ function hasConversationWriteAccess(channel, user) {
 }
 
 function isChannel(id) {
+	if (!id) {
+		return false;
+	}
 	if (id.toString().length == 8) {
 		if (dataForChannel(id)) {
 			return true;
@@ -1800,7 +1803,11 @@ function sendMessages(ws, messages, body) {
 async function currentVersion() {
 	let output = new Promise(resolve => {
 		fs.readFile(`${config.path}/.git/refs/heads/master`, 'utf8', (err, data) => {
-			resolve(data.trim());
+			if (err || !data) {
+				resolve('unknown');
+			} else {
+				resolve(data.trim());
+			}
 		});
 	})
 	return await output;
