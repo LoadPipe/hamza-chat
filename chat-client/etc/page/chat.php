@@ -257,6 +257,10 @@
 			<div class="right">
 				<div class="icon users"></div>
 			</div>
+
+			<button class="close-window-button">
+				<img src="/assets/img/icons/delete-sign.png" onclick="window.close();">
+			</button>
 		</div>
 		<div id="chats">
 			<div id="conversations" class="sidebar">

@@ -48,8 +48,10 @@
 </head>
 <body data-page="id" <?php echo $test_mode ? 'data-test-mode="true"' : ''; ?>>
 	<?php if ($test_mode): ?>
-	<div class="test-mode-indicator">Test Mode</div>
+		<div class="test-mode-indicator">Test Mode</div>
 	<?php endif; ?>
+	<button class="close-window-button"><img src="/assets/img/icons/delete-sign.png" onclick="window.close();"></button>
+	
 	<div id="blackout"></div>
 	<div class="popover" data-name="qr">
 		<div class="head">
