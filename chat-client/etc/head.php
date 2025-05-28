@@ -1,5 +1,7 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
+
+	$revision = 19;
 ?>
 <title>HNSChat</title>
 <meta charset="utf-8">
@@ -22,22 +24,22 @@
 <meta property="twitter:image" content="https://hns.chat/assets/img/cover">
 <link rel="manifest" href="/manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style?r=1">
+<link rel="stylesheet" href="/assets/css/style?r=<?php echo $revision; ?>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://auth.varo.domains/v1"></script>
-<script type="text/javascript" src="/assets/js/qr?r=1"></script>
-<script type="text/javascript" src="/assets/js/qr2?r=1"></script>
-<script type="text/javascript" src="/assets/js/he?r=1"></script>
-<script type="text/javascript" src="/assets/js/zwj?r=1"></script>
-<script type="text/javascript" src="/assets/js/date?r=1"></script>
-<script type="text/javascript" src="/assets/js/emojis?r=1"></script>
-<script type="text/javascript" src="/assets/js/anchorme?r=1"></script>
-<script type="text/javascript" src="/assets/js/mask?r=1"></script>
-<script type="text/javascript" src="/assets/js/confetti?r=1"></script>
-<script type="text/javascript" src="/assets/js/dish?r=1"></script>
-<script type="text/javascript" src="/assets/js/janus?r=1"></script>
-<script type="text/javascript" src="/assets/js/adapter?r=1"></script>
-<script type="module" src="/assets/js/script?r=1"></script>
+<script type="text/javascript" src="/assets/js/qr?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/qr2?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/he?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/zwj?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/date?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/emojis?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/anchorme?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/mask?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/confetti?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/dish?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/janus?r=<?php echo $revision; ?>"></script>
+<script type="text/javascript" src="/assets/js/adapter?r=<?php echo $revision; ?>"></script>
+<script type="module" src="/assets/js/script?r=<?php echo $revision; ?>"></script>
 <script type="text/javascript">
-	var revision = 1; 
+	var revision = <?php echo $revision; ?>; 
 </script>

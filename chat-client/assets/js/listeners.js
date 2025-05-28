@@ -6,6 +6,11 @@ export class listeners {
         this.longPress = 0;
         this.longPressTimer;
 
+        // Test mode initialization
+        if (window.TEST_MODE) {
+            this.initializeTestMode(app);
+        }
+
         $(document).ready((e) => {
             const params = new Proxy(
                 new URLSearchParams(window.location.search),
