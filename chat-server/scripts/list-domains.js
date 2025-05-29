@@ -34,14 +34,16 @@ async function db(query, values = []) {
 
 async function listDomains() {
     try {
-        let select = await db('SELECT domain from domains');
+        let select = await db('SELECT domain, deleted from domains');
         if (!select) {
             console.log('Database query failed; nothing returned');
             exit();
         }
 
         for (let item of select) {
-            console.log(item.domain);
+            console.log(
+                `${item.domain} ${item.deleted == 0 ? '' : '[DELETED]'}`
+            );
         }
         exit();
     } catch (e) {
