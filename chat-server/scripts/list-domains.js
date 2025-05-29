@@ -41,7 +41,7 @@ async function listDomains() {
         }
 
         for (let item of select) {
-            console.log(item);
+            console.log(item.domain);
         }
         exit();
     } catch (e) {
