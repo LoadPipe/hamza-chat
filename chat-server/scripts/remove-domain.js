@@ -45,18 +45,17 @@ rl.question('Enter domain name: ', async (name) => {
 
         console.log(`Removing domain with name ${name}`);
 
-        //remove associated channels
-        await db(`DELETE FROM channels WHERE admins = '${domainId}'`);
-        console.log(`Removed channels of domain: ${domainId}`);
-
         //remove the domain
-        await db(`DELETE FROM domains WHERE domain = '${name}'`);
+        await db(
+            `UPDATE domains SET deleted=1 WHERE domain='${name}' and admin=0`
+        );
         console.log(`Removed domains: ${name}`);
 
         rl.close();
         exit(0);
     } catch (e) {
         console.error(e);
+        rl.close();
         exit();
     }
 });
