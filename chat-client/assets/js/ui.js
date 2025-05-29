@@ -296,7 +296,7 @@ export class ui {
 
 	domains(array) {
 		let domains = this.parent.sorted(array, "domain");
-
+        
 		switch (this.parent.page) {
 			case "chat":
 				$(".header .domains select").empty();
@@ -316,6 +316,7 @@ export class ui {
 				break;
 
 			case "id":
+				break;
 			case "invite":
 				if (!this.parent.varoLoaded() || this.parent.mobile) {
 					$(".varo").addClass("hidden");
@@ -345,6 +346,9 @@ export class ui {
 				if (this.parent.page !== "invite") {
 					this.showSection("manageDomains");
 				}
+				break;
+
+			default:
 				break;
 		}
 	}
