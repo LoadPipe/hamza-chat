@@ -316,7 +316,6 @@ export class ui {
 				break;
 
 			case "id":
-				break;
 			case "invite":
 				if (!this.parent.varoLoaded() || this.parent.mobile) {
 					$(".varo").addClass("hidden");
@@ -343,12 +342,11 @@ export class ui {
 					$(".section#manageDomains #startChatting").removeClass("hidden");
 				}
 
-				if (this.parent.page !== "invite") {
+				let urlParams = new URLSearchParams(window.location.search);
+				let autocreate = urlParams.get('autocreate');
+				if (this.parent.page !== "invite" && autocreate !== 'true') {
 					this.showSection("manageDomains");
 				}
-				break;
-
-			default:
 				break;
 		}
 	}
