@@ -73,7 +73,7 @@ Edit contents of config.json
 docker compose up -d
 ```
 
-NOTE: websocket may not start properly, to restart, do (2) first, then 
+NOTE: websocket may not start properly due to insufficient permissions from the database. Continue from (2a) will resolve the issue. 
 
 2a. Import the init.sql script:
 ```bash
@@ -103,7 +103,7 @@ docker exec -i docker-v2-db-1 mysql -u root -proot-password hnschat -e "UPDATE c
 
 4c. grab the value in "session"
 
-4d. Check if session is in db:
+4d. Check if session is in db, a result should be returned if correct:
 ```bash
 docker exec -i docker-v2-db-1 mysql -u root -proot-password hnschat -e "SELECT * FROM sessions WHERE id='the_value_in_c';"
 ```
@@ -113,7 +113,7 @@ docker exec -i docker-v2-db-1 mysql -u root -proot-password hnschat -e "SELECT *
 docker exec -i docker-v2-db-1 mysql -u root -proot-password hnschat -e "UPDATE domains set session='the_value_in_c' WHERE domain='hamzamarket'"
 ```
 
-4d. Check if domain session is updated in db (a test domain was created in init.sql):
+4d. Check if domain session is updated in db (a test domain was created in init.sql), if 4(e) is correct, a result should return with the session value:
 ```bash
 docker exec -i docker-v2-db-1 mysql -u root -proot-password hnschat -e "SELECT session FROM domains WHERE domain='hamzamarket';"
 ```
