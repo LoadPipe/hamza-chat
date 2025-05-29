@@ -32,17 +32,22 @@ async function db(query, values = []) {
     return await result;
 }
 
-rl.question('Enter channel name: ', async (channelName) => {
+async function listDomains() {
     try {
-        channelName = channelName.trim();
-        console.log(`Deleting channel with name ${channelName}`);
-        await db(`DELETE FROM channels WHERE name = '${channelName}'`);
-        console.log(`Removed channel: ${channelName}`);
+        let select = await db('SELECT domain from domains');
+        if (!select) {
+            console.log('Database query failed; nothing returned');
+            exit();
+        }
 
-        rl.close();
-        exit(0);
+        for (let item of select) {
+            console.log(item);
+        }
+        exit();
     } catch (e) {
         console.error(e);
         exit();
     }
-});
+}
+
+listDomains();

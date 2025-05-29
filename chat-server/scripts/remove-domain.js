@@ -32,12 +32,26 @@ async function db(query, values = []) {
     return await result;
 }
 
-rl.question('Enter channel name: ', async (channelName) => {
+rl.question('Enter domain name: ', async (name) => {
     try {
-        channelName = channelName.trim();
-        console.log(`Deleting channel with name ${channelName}`);
-        await db(`DELETE FROM channels WHERE name = '${channelName}'`);
-        console.log(`Removed channel: ${channelName}`);
+        let domainId = await db('SELECT id FROM domains WHERE domain = ?', [
+            name.trim(),
+        ]);
+        if (!domainId.length) {
+            console.log('Domain not found.');
+            rl.close();
+            exit(1);
+        }
+
+        console.log(`Removing domain with name ${name}`);
+
+        //remove associated channels
+        await db(`DELETE FROM channels WHERE admins = '${domainId}'`);
+        console.log(`Removed channels of domain: ${domainId}`);
+
+        //remove the domain
+        await db(`DELETE FROM domains WHERE domain = '${name}'`);
+        console.log(`Removed domains: ${name}`);
 
         rl.close();
         exit(0);
