@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cd chat-server/scripts
-node create-channel.js
+node remove-domain.js
 systemctl restart hnschat
