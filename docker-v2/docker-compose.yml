@@ -6,7 +6,7 @@ services:
       context: ..
       dockerfile: docker-v2/Dockerfile
     ports:
-      - "80:80"
+      - "8089:80"
     volumes:
       - ../chat-client:/var/www/html
     depends_on:
