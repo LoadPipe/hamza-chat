@@ -148,6 +148,25 @@ export class HNSChat {
 		localStorage.removeItem("handlePush");
 	}
 
+	autoCreateUser() {
+		// example url: http://localhost/id?name=yogibear&autocreate=true
+		this.ui.showSection('addDomain');
+		let urlParams = new URLSearchParams(window.location.search);
+		let name = urlParams.get('name');
+		let autocreate = urlParams.get('autocreate');
+		if (autocreate === 'true') {
+			let sld = name;
+			let tld = 'chrischannel';
+			let data = {
+				sld: sld,
+				tld: tld
+			}
+			this.ws.send(`ADDSLD ${JSON.stringify(data)}`);
+			// this.ui.showSection('manageDomains');
+			window.location.href = '/';
+		}
+	}
+
 	async init() {
 		this.handlePush(true);
 		
@@ -201,6 +220,7 @@ export class HNSChat {
 				await this.startSession();
 				await this.setPublicKey();
 				await this.ws.connect();
+				this.autoCreateUser();
 				break;
 		}
 

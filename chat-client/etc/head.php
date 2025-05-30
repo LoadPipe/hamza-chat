@@ -1,7 +1,7 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
 
-	$revision = 19;
+	$revision = 30;
 ?>
 <title>HNSChat</title>
 <meta charset="utf-8">
