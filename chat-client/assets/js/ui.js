@@ -296,7 +296,7 @@ export class ui {
 
 	domains(array) {
 		let domains = this.parent.sorted(array, "domain");
-
+        
 		switch (this.parent.page) {
 			case "chat":
 				$(".header .domains select").empty();
@@ -342,7 +342,9 @@ export class ui {
 					$(".section#manageDomains #startChatting").removeClass("hidden");
 				}
 
-				if (this.parent.page !== "invite") {
+				let urlParams = new URLSearchParams(window.location.search);
+				let autocreate = urlParams.get('autocreate');
+				if (this.parent.page !== "invite" && autocreate !== 'true') {
 					this.showSection("manageDomains");
 				}
 				break;

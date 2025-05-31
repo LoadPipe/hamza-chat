@@ -1,4 +1,7 @@
 <?php
+	// Ensure no output before headers// Ensure no output before headers
+	ob_start();
+	
 	include "etc/includes.php";
 
 	set_time_limit(0);

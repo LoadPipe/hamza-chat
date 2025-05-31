@@ -1,4 +1,7 @@
 <?php
+	// Ensure no output before headers
+	ob_start();
+	
 	include "etc/includes.php";
 
 	// Test mode configuration
@@ -20,17 +23,28 @@
 		<?php
 	}
 
-	if (@$_GET["invite"]) { ?>
-		<script type="text/javascript">
-			var invite = "<?php echo htmlspecialchars(addslashes($_GET["invite"])); ?>";
-		</script>
-	<?php
+	// Store invite code in a variable instead of outputting it directly
+	$invite_script = '';
+	if (@$_GET["invite"]) {
+		$invite_script = '<script type="text/javascript">var invite = "' . htmlspecialchars(addslashes($_GET["invite"])) . '";</script>';
 	}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include "etc/head.php"; ?>
+	<?php echo $invite_script; ?>
+	<?php if ($test_mode): ?>
+	<script>
+		// Auto-skip verification in test mode
+		document.addEventListener('DOMContentLoaded', function() {
+			// Hide loading section
+			document.querySelector('.section.loading').classList.remove('shown');
+			// Show manageDomains section
+			document.getElementById('manageDomains').style.display = 'block';
+		});
+	</script>
+	<?php endif; ?>
 </head>
 <body data-page="id" <?php echo $test_mode ? 'data-test-mode="true"' : ''; ?>>
 	<?php if ($test_mode): ?>
@@ -59,12 +73,12 @@
 				<img draggable="false" src="/assets/img/login-logo.svg">
 			</div>
 		</a>
-		<div class="section loading shown">
+		<div class="section loading <?php echo $test_mode ? '' : 'shown'; ?>">
 			<div class="loading flex shown">
 				<div class="lds-facebook"><div></div><div></div><div></div></div>
 			</div>
 		</div>
-		<div class="section" id="manageDomains">
+		<div class="section" id="manageDomains" style="<?php echo $test_mode ? 'display: block;' : 'display: none;'; ?>">
 			<div class="domains"></div>
 			<div class="button" data-action="newDomain">Add Domain</div>
 			<div class="button" data-action="scanQR">Scan Sync QR</div>
