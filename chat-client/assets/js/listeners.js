@@ -21,28 +21,33 @@ export class listeners {
             let recipient = params.target;
             let orderId = params.order;
 
-            if (!$('#users').hasClass('showing')) {
-                $('#users').addClass('showing');
-            }
-            const target = $(
-                'tr.user[data-id="YZKBhoCAGtJostcd"][data-name="' +
+            setTimeout(() => {
+                if (!$('#users').hasClass('showing')) {
+                    $('#users').addClass('showing');
+                }
+
+                const user = app.userForName(recipient);
+
+                const target = $(
+                    `tr.user[data-id="${user?.id ?? ''}"][data-name="' +
                     recipient +
-                    '"]'
-            );
+                    '"]`
+                );
 
-            let name = recipient;
+                let name = recipient;
 
-            let puny = `${app.ui.toUnicode(name)}/`;
-            $(`.popover[data-name=newConversation] input[name=domain]`).val(
-                puny
-            );
-            app.ui.popover('newConversation');
-            app.ui.enableTarget(target);
+                let puny = `${app.ui.toUnicode(name)}/`;
+                $(`.popover[data-name=newConversation] input[name=domain]`).val(
+                    puny
+                );
+                app.ui.popover('newConversation');
+                app.ui.enableTarget(target);
 
-            if (orderId?.length) {
-                const textbox = $('input[name="message"]');
-                textbox.val('Order: ' + orderId);
-            }
+                if (orderId?.length) {
+                    const textbox = $('input[name="message"]');
+                    textbox.val('Order: ' + orderId);
+                }
+            }, 1000);
         });
 
         $(window).on('focus', (e) => {
@@ -533,7 +538,6 @@ export class listeners {
                     break;
 
                 case 'newConversationWith':
-                    alert(target.id);
                     id = target.closest('.contextMenu').data('id');
                     name = app.userForID(id).domain;
                     let puny = `${app.ui.toUnicode(name)}/`;
